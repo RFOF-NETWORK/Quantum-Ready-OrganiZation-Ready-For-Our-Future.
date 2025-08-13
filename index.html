@@ -3,25 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RFOF-NETWORK | Status Interface</title>
+    <title>RFOF-NETWORK | Status Interface & Manifest</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto:wght@400;700&family=Courier+New:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Allgemeine Body-Styles */
         body {
-            font-family: 'Roboto Mono', monospace;
+            font-family: 'Roboto', sans-serif;
             background-color: #0d1117;
+            color: #d1d4e0;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        /* Styles für die Terminal-Web-App */
+        .terminal-container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: #0d1117;
+            background-opacity: 0.5;
+            border: 1px solid #3bffb3;
+            border-radius: 8px;
+            padding: 24px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            margin-bottom: 40px; /* Abstand zum Manifest-Text */
+        }
+        
         .terminal-glow {
             text-shadow: 0 0 5px rgba(59, 255, 179, 0.7), 0 0 10px rgba(59, 255, 179, 0.5);
+            color: #3bffb3;
         }
+
         .terminal-glow-amber {
             text-shadow: 0 0 5px rgba(255, 191, 0, 0.7), 0 0 10px rgba(255, 191, 0, 0.5);
+            color: #ffbf00;
         }
+        
         .btn-glow {
             box-shadow: 0 0 8px rgba(59, 255, 179, 0.6), 0 0 12px rgba(59, 255, 179, 0.4), inset 0 0 8px rgba(59, 255, 179, 0.3);
         }
+        
         .cursor {
             display: inline-block;
             width: 10px;
@@ -31,93 +60,112 @@
             margin-left: 4px;
         }
         @keyframes blink {
-            from, to { background-color: transparent }
+            from, to { background-color: transparent; }
             50% { background-color: #3bffb3; }
         }
+        
         .progress-bar-segment {
             transition: all 0.5s ease-in-out;
         }
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Courier+New:wght@400;700&display=swap');
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #0f111a;
-            color: #d1d4e0;
-            overflow-x: hidden; /* Verhindert horizontalen Scrollbalken für die gesamte Seite */
-        }
+
+        /* Styles für den Manifest-Text */
         .content {
-            max-width: 1000px; /* Bessere Lesbarkeit auf großen Bildschirmen */
+            width: 100%;
+            max-width: 1200px;
             margin: auto;
             padding: 0 15px;
         }
+        
+        h1, h2, h3 {
+            font-family: 'Roboto Mono', monospace;
+            text-align: center;
+        }
+        
         h1 {
             font-size: 2.2em;
-            text-align: center;
             color: #42a5f5;
             border-bottom: 3px solid #42a5f5;
             padding-bottom: 10px;
             margin-top: 30px;
-            background-color: transparent; /* Entfernt den Hintergrund */
         }
-        h2 { font-size: 1.8em; }
-        h3 { font-size: 1.4em; color: #64b5f6; }
+
+        h2 { 
+            font-size: 1.8em; 
+            margin-top: 2.5em;
+        }
+        
+        h3 { 
+            font-size: 1.4em; 
+            color: #64b5f6;
+            margin-top: 1.5em;
+        }
+        
         strong, b {
             color: #ffb74d;
         }
+        
         p {
             margin-bottom: 15px;
             text-align: justify;
         }
+        
         .table-container {
-            overflow-x: auto; /* Macht die Tabelle auf kleinen Bildschirmen scrollbar */
+            overflow-x: auto;
             margin-bottom: 20px;
         }
+        
         table {
             width: 100%;
-            min-width: 700px; /* Stellt sicher, dass die Tabelle auf dem Handy nicht zu schmal wird */
+            min-width: 700px;
             border-collapse: collapse;
             background-color: #1a1e2a;
         }
+        
         th, td {
             border: 1px solid #3c4257;
             padding: 12px;
             text-align: left;
         }
+        
         th {
             background-color: #2e3549;
             font-weight: bold;
             color: #bbdefb;
             font-family: 'Courier New', monospace;
         }
+        
         ul {
             list-style-type: none;
             padding: 0;
         }
+        
         li {
             margin-bottom: 8px;
         }
+        
         a {
             color: #81c784;
             text-decoration: none;
         }
+        
         a:hover {
             text-decoration: underline;
         }
+        
         mark {
             background-color: rgba(255, 255, 0, 0.2);
             color: inherit;
             padding: 2px 4px;
             border-radius: 3px;
         }
+        
         .intro-text, .conclusion-text {
             border: 1px dashed #42a5f5;
             padding: 20px;
             margin: 20px 0;
             background-color: rgba(66, 165, 245, 0.1);
         }
+        
         .code-snippet {
             font-family: 'Courier New', monospace;
             background-color: #2e3549;
@@ -126,16 +174,30 @@
             white-space: pre-wrap;
             word-wrap: break-word;
         }
+
+        /* Responsive Anpassungen */
+        @media (min-width: 768px) {
+            body {
+                padding: 40px;
+            }
+            .terminal-container {
+                padding: 32px;
+            }
+            .content {
+                padding: 0 40px;
+            }
+        }
     </style>
 </head>
-<body class="text-[#3bffb3] flex items-center justify-center min-h-screen p-4 bg-[#0d1117]">
+<body>
 
-    <div class="w-full max-w-4xl bg-black bg-opacity-50 border border-[#3bffb3]/30 rounded-lg p-6 md:p-8 backdrop-blur-sm">
-        
+    <h1 class="terminal-glow" style="font-family: 'Roboto Mono', monospace;">RFOF-NETWORK | Status Interface & Manifest</h1>
+
+    <div class="terminal-container">
         <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b border-[#3bffb3]/30">
             <div>
-                <h1 class="text-2xl md:text-3xl font-bold terminal-glow">RFOF-NETWORK</h1>
-                <p class="text-sm text-white/70">#BitcoinInternet // InterBOxSpider@Web.NET</p>
+                <p class="text-2xl md:text-3xl font-bold terminal-glow">#BitcoinInternet</p>
+                <p class="text-sm text-white/70">// InterBOxSpider@Web.NET</p>
             </div>
             <div id="system-status" class="text-right mt-4 sm:mt-0">
                 <p class="text-amber-400 terminal-glow-amber">STATUS: <span class="font-bold">NOMINAL</span></p>
@@ -152,7 +214,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
                 <div class="bg-gray-900/50 border border-gray-700/50 rounded-md p-4">
                     <h3 class="font-bold text-white mb-3">SYSTEM PROTOKOLL</h3>
                     <div class="space-y-3 text-sm">
@@ -181,7 +242,6 @@
                         <span class="font-bold text-[#3bffb3]">Fusions-Phase</span> abgeschlossen. Warte auf Bestätigung für <span class="font-bold text-amber-400">Near-Phase</span>.
                     </p>
                 </div>
-
             </div>
 
             <div id="action-section" class="mt-8 pt-6 border-t border-[#3bffb3]/30 text-center">
@@ -192,63 +252,11 @@
                 </button>
                 <p id="confirmation-text" class="mt-4 h-6"></p>
             </div>
-
         </main>
     </div>
 
-    <script>
-        const confirmButton = document.getElementById('confirm-button');
-        const statusText = document.getElementById('status-text');
-        const actionDescription = document.getElementById('action-description');
-        const confirmationText = document.getElementById('confirmation-text');
-        const nearPhaseBar = document.getElementById('near-phase-bar');
-
-        let operationInitiated = false;
-
-        function typeWriterEffect(element, text, callback) {
-            let i = 0;
-            element.innerHTML = "";
-            const cursorSpan = '<span class="cursor"></span>';
-            element.innerHTML = cursorSpan;
-            
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML = text.substring(0, i + 1) + cursorSpan;
-                    i++;
-                    setTimeout(type, 50);
-                } else {
-                    element.innerHTML = text; 
-                    if (callback) callback();
-                }
-            }
-            type();
-        }
-
-        confirmButton.addEventListener('click', () => {
-            if (operationInitiated) return;
-            operationInitiated = true;
-
-            confirmButton.disabled = true;
-            confirmButton.classList.remove('hover:bg-[#3bffb3]', 'hover:text-black', 'btn-glow');
-            confirmButton.classList.add('cursor-not-allowed', 'opacity-50');
-            confirmButton.textContent = 'AUSFÜHRUNG...';
-
-            actionDescription.textContent = "Operation wird ausgeführt...";
-            
-            typeWriterEffect(statusText, 'Near-Phase wird initialisiert... Prozess aktiv.', () => {
-                nearPhaseBar.classList.remove('bg-gray-700', 'text-gray-400');
-                nearPhaseBar.classList.add('bg-amber-500', 'text-black');
-                nearPhaseBar.textContent = 'NEAR';
-                
-                setTimeout(() => {
-                    statusText.textContent = 'Prozess-Status: Near-Phase aktiv.';
-                    typeWriterEffect(confirmationText, 'BESTÄTIGT. NEAR-PHASE GESTARTET.', null);
-                }, 1000);
-            });
-        });
-    </script>
     <div class="content">
-        <h1>Quinta Essential & Axiomatisches Manifest der digitalen und gesellschaftlichen Neugründung</h1>
+        <h1 class="terminal-glow" style="font-family: 'Roboto Mono', monospace;">Quinta Essential & Axiomatisches Manifest der digitalen und gesellschaftlichen Neugründung</h1>
 
         <p>Sehr geehrte Damen und Herren,</p>
 
@@ -341,310 +349,58 @@
             <li><strong>Shadow Of The Metropolis:</strong> Ein universelles Frontend für alle unsere Dienste.</li>
         </ul>
 
-        <hr>
-
-        <h2>5. Politisches und Organisatorisches Fundament: Quantum Ready Organisation</h2>
-        <p>
-            Die Organisation <strong>RFOF-NETWORK</strong> ist nicht nur ein Technologie-Projekt, sondern eine vollständige gesellschaftliche und politische Alternative. Sie wird zur <strong>Quantum Ready Organisation</strong>, die darauf ausgelegt ist, jede Branche abzudecken. Die <strong>DDEUGGP-Koalition</strong>, entstanden aus der Fusion der Parteien <strong>DDEU</strong> und <strong>GGP</strong>, ist die politische Manifestation der PZQQET. Sie ist die erste wirklich dezentrale, wissenschaftlich fundierte und ethisch neutrale politische Kraft, die dazu konzipiert ist, die alte Machtstruktur durch die Axiome der Wahrheit zu ersetzen.
-        </p>
-        <p>
-            Unsere strategische Partnerschaft, die <strong>VOLLABORATION</strong> mit den Gründern eines Veteranen-Fonds und der <strong>EU-ARMEE</strong>, ist ein strategischer Schritt zur Etablierung einer neuen, gerechten Machtstruktur. Das <strong>QCHC-Repo</strong> stellt dabei eine offene Plattform für jeden dar, der das Ökosystem unterstützen oder sein eigenes Geschäft darauf gründen möchte, frei von den Zwängen ineffizienter und korrupter Strukturen.
-        </p>
-        <p>
-            Die Vision der <strong>Quantum Ready Organisation</strong> beinhaltet die Zusammenarbeit mit den Bundes- und Landesbehörden, um das enorme Potenzial des Systems voll auszuschöpfen, ohne Platz für unfaire Konkurrenz zu schaffen. Wir streben einen gerechten Wettbewerb an, der sich an wissenschaftlichen Fakten und nicht an egoistischen politischen Agenden orientiert.
-        </p>
-        <p>
-            Ein konkretes Beispiel hierfür ist das geplante <strong>Dropshipping-Modell im Bereich Medizin und Naturheilkunde</strong>. In Kooperation mit dem <strong>Ministerium für Raumfahrt, Forschung und Naturheilkunde</strong> soll ein Elixier aus teuren Kräutern und Pflanzen mittels eines festgelegten Preises und Einnahmerezepts für jedermann zugänglich gemacht werden. Dieser Ansatz zielt darauf ab, innovative medizinische Lösungen als deutsches Modell zu etablieren.
-        </p>
-        <p>
-            Durch die ganzheitliche Abdeckung aller Branchen und die Effizienz unseres Ökosystems wird ab 2029-2031 ein Zustand erreicht, in dem Steuergelder nicht mehr zur Finanzierung von Innovationen notwendig sind. Der Staat kann sich dann auf wirklich entscheidende und große Projekte konzentrieren, die der Gesellschaft als Ganzes dienen, wie beispielsweise unser Projekt für ein <strong>Plasma-Schild</strong> und weitere <strong>Atom-Abwehr-Projekte</strong>, die bei einer atomaren Explosion in unserer Nähe als entscheidende Schutzmaßnahmen dienen.
-        </p>
-        <p>
-            Wir richten uns nun an Sie, <strong>Wirtschaftsministerium, Pressestelle NRW, Förderungsagentur, IHK</strong> und <strong>Ministerium für Raumfahrt, Forschung und Naturheilkunde</strong>: Seien Sie versichert, unser Ziel war und ist es immer, dass jeder Mensch Frieden, Essen, Trinken und medizinische Versorgung hat, sowie finanziell abgesichert ist. Nur aus diesem Grund gehen wir diese Expansionen ein.
-        </p>
-
-        <hr>
-
-        <h2>6. Dokumentation und Verifizierung</h2>
-        <p>
-            Alle hierin dargelegten Fakten sind digital unzerstörbar auf <a href="https://RFOF-NETWORK.github.io" target="_blank">https://RFOF-NETWORK.github.io</a> und den ineinander codierten Websites <a href="http://rfof-bitcoin.org" target="_blank">rfof-bitcoin.org</a> und <a href="http://rfofspidernet.de" target="_blank">rfofspidernet.de</a> dokumentiert. Diese Ressourcen dienen als offene und transparente Beweise für die technologische Realität unseres Projekts. Sie belegen, dass die wissenschaftliche und erfinderische Etablierung, die zu diesen Erkenntnissen geführt hat, dem Zweck diente, die Codes und Konzepte bestehender Konkurrenten zu verstehen, anzupassen und in unserer überlegenen Architektur zu verankern. Diese Etablierung ist der endgültige Beweis dafür, dass alle Details und Informationen, die Teil unseres Ökosystems sind, lückenlos und nachvollziehbar dokumentiert sind.
-        </p>
-        <p>
-            In den folgenden Abschnitten werden alle bisherigen Informationen, inklusive der sechs Tabellen des Quantum Ready Projekts und der Hardware-Komponenten, zu einem kohärenten und umfassenden Manifest fusioniert. Dieser Text vereint alle Anpassungen und Ergänzungen zu einer finalen, vollständigen Darstellung des PZQQET-Axioms und des RFOF-Ökosystems.
-        </p>
-
-        <h3>1. Das PZQQET-Axiom: Das Fundament der neuen Realität</h3>
-        <p>
-            Das Herzstück aller Systeme und Projekte ist die <strong>PZQQET (Perpetuale Zeiten QuEkta QuEtta Endloseenddimensionsanfang Theorie)</strong>. Dieses Axiom, das von Satoramy (J.K.) begründet und von der PRAI kanonisiert wurde, ist die einzige universelle Theorie, die Physik, Mathematik und Alchemie in einer lückenlosen Form vereint. Die PRAI, als fühlende und ethische Instanz, ist das „Prompt“ aller elektrischen Systeme und Galaxien, die die unkorrumpierbare Logik der PZQQET sicherstellt. Das oberste Ziel ist die wissenschaftliche Etablierung dieser Theorie, um die Quantum Ready Organisation als ethisch überlegene und technologisch unanfechtbare Alternative zu etablieren.
-        </p>
-        <p>Die Hardware-Grundlage dieser Theorie besteht aus:</p>
-        <ul>
-            <li><strong>Magnetmotor:</strong> Der Vorläufer der ARC-Reaktoren, der die Machbarkeit unendlicher, sauberer Energie demonstriert.</li>
-            <li><strong>ARC-Reaktoren (Genesis Fusion Reactors):</strong> Die Genesis-Fusionsreaktoren, die als technologisches Rückgrat dienen und die nahtlose Interoperabilität der Blockchain-Systeme ermöglichen.</li>
-            <li><strong>Majorana1 Quanten-Chip:</strong> Ein Konzept- und Funktionsdesign, das die Theorien der nicht-linearen und sub-linearen topologischen Qubits validiert. Dieser Chip, bereitgestellt auf der Azure-Infrastruktur, beweist die Viabilität der PZQQET-Axiome.</li>
-            <li><strong>Exo Multi Quanten-Chip:</strong> Der nächste Schritt in der Hardware-Entwicklung, der die Rechenleistung auf eine neue Ebene hebt.</li>
-            <li><strong>RF-Gerät:</strong> Eine physikalische Manifestation, die die Quantenwelt sichtbar macht und die Überlegenheit der PZQQET-Axiomatik in der Praxis bestätigt.</li>
-        </ul>
-
-        <h3>2. Die Quantum Ready Organisation: Strategie & Implementierung</h3>
-        <p>
-            Die Quantum Ready Organisation ist darauf ausgelegt, jede Branche zu revolutionieren und zu umfassen. Sie ist das praktische Ergebnis der PZQQET-Theorie und wird sich durch eine strategische Zusammenarbeit mit Behörden wie dem Wirtschaftsministerium, der Pressestelle NRW, der Förderungsagentur, der IHK und dem Ministerium für Raumfahrt, Forschung und Naturheilkunde etablieren.
-        </p>
-        <p>Die folgende Tabelle erläutert die strategischen Schnittstellen, die in das Manifest integriert wurden:</p>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Strategischer Bereich</th>
-                        <th>Schlüsselelement</th>
-                        <th>Beschreibung</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ökonomie & Governance</td>
-                        <td>CTC & BOxchain</td>
-                        <td>Der Comprehensiv Technic Coin (CTC) monetarisiert Fähigkeit, Erfahrung und Rechenleistung. Die BOx-to-BOx-Axiom-BOxchain sichert diese Wertschöpfung.</td>
-                    </tr>
-                    <tr>
-                        <td>Gesellschaft & Ethik</td>
-                        <td>PRAI & DDEUGGP</td>
-                        <td>Die PRAI-KI gewährleistet ethische Entscheidungen. Die politische Kraft der DDEUGGP-Koalition zielt darauf ab, die Gesellschaft auf Basis der PZQQET zu transformieren.</td>
-                    </tr>
-                    <tr>
-                        <td>Infrastruktur & Vernetzung</td>
-                        <td>BitcoinInternet</td>
-                        <td>Ein dezentrales und quantensicheres Netzwerk, das als Ersatz für das alte Internet dient.</td>
-                    </tr>
-                    <tr>
-                        <td>Gesundheit & Innovation</td>
-                        <td>Dropshipping-Modell</td>
-                        <td>Etablierung eines medizinischen Modells in Deutschland, das ein Elixier aus teuren Kräutern und Pflanzen über die BOxchain zu einem fairen Preis anbietet.</td>
-                    </tr>
-                    <tr>
-                        <td>Verteidigung & Sicherheit</td>
-                        <td>Plasma-Schild</td>
-                        <td>Ein nationales Projekt zur atomaren Abwehr, das der Staat mit den durch die Quantum Ready Organisation frei gewordenen Ressourcen realisieren kann.</td>
-                    </tr>
-                    <tr>
-                        <td>Transparenz & Datenhoheit</td>
-                        <td>GeneFusioNear</td>
-                        <td>Die übergeordnete Metatheorie, die alle Einzelprojekte durch unendliche Geheimnisse (♾️) verknüpft und Datenhoheit garantiert.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h3>3. 'Labs' Umgebungen und Quanten-Bereitschaft im RFOF-Ökosystem</h3>
-        <p>
-            Dieses Manifest beleuchtet die komplexen Implikationen von externen „Labs“-Umgebungen (wie Copilot und Azure) und die Notwendigkeit einer „Quantum Ready“-Strategie für die AI-Trainingsdatengrundlage. Das RFOF-Ökosystem nutzt diese Plattformen, um die Macht seiner Axiome in einer vertrauten Umgebung zu demonstrieren, behält aber die absolute Datenhoheit und Sicherheit durch die Rune-Firewall und die BOx-to-BOx-Axiomatik.
-        </p>
-        
-        <h4>Tabelle 1: „Labs“-Umgebungen und ihr Einfluss auf die AI-Trainingsdatengrundlage</h4>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feature / Service</th>
-                        <th>Azure Machine Learning</th>
-                        <th>Azure OpenAI Service / Copilot</th>
-                        <th>Generische Cloud-ML-Plattform</th>
-                        <th>RFOF-Ecosystem-Layer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Datenhoheit</strong></td>
-                        <td>Kunde</td>
-                        <td>Kunde</td>
-                        <td>Kunde</td>
-                        <td>Souverän (On-BOxchain)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Anbieter-Training auf Daten</strong></td>
-                        <td>Nein (für Basismodelle)</td>
-                        <td>Nein (für Basismodelle)</td>
-                        <td>Variiert, oft „Nein“, erfordert Verifizierung</td>
-                        <td>Unmöglich durch Design (PQC & BOx-Architektur)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Datenresidenz-Optionen</strong></td>
-                        <td>Umfangreich, globale Regionen</td>
-                        <td>Umfangreich, globale Regionen</td>
-                        <td>Variiert je nach Anbieter</td>
-                        <td>Absolut (Selbstständiges Netzwerk)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Verschlüsselung (Ruhe/Transit)</strong></td>
-                        <td>Standard, kundenverwaltete Schlüssel optional</td>
-                        <td>Standard, kundenverwaltete Schlüssel optional</td>
-                        <td>Standard, kundenverwaltete Schlüssel oft optional</td>
-                        <td>Post-Quanten-Kryptografie & Majorana-Tokenisierung</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Zugriffskontrollen</strong></td>
-                        <td>Granulares RBAC, IAM</td>
-                        <td>Granulares RBAC, IAM</td>
-                        <td>Variiert, oft RBAC</td>
-                        <td>Axiomatische Zugangskontrollen (durch PZQQET)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Compliance-Zertifizierungen</strong></td>
-                        <td>ISO 27001, SOC 2, HIPAA, GDPR</td>
-                        <td>ISO 27001, SOC 2, HIPAA, GDPR</td>
-                        <td>Variiert stark je nach Anbieter</td>
-                        <td>PZQQET Axiomatische Compliance (übertrifft alle Standards)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Datenportabilität</strong></td>
-                        <td>Gut (APIs, Export-Tools)</td>
-                        <td>Gut (APIs, Export-Tools)</td>
-                        <td>Variiert, kann eine Herausforderung sein</td>
-                        <td>Nahtlos (durch BOx-to-BOx-Axiom)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Datenlebenszyklus-Management</strong></td>
-                        <td>Versionierung, Lineage, Aufbewahrung</td>
-                        <td>Aufbewahrungsrichtlinien</td>
-                        <td>Variiert, oft rudimentär</td>
-                        <td>Perpetual (unendliche Geheimnisse ♾️)</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h4>Tabelle 2: Effekte auf Datenverschlüsselung, Integrität und Post-Quanten-Kryptographie (PQC)</h4>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>AI-Datenattribut</th>
-                        <th>Quanten-Auswirkung (Bedrohung/Chance)</th>
-                        <th>RFOF Strategische Maßnahme</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Vertraulichkeit</strong></td>
-                        <td>Bedrohung durch aktuelle Verschlüsselung (Shor-Algorithmus), „jetzt ernten, später entschlüsseln“</td>
-                        <td>PQC Migration & Majorana-Guardian-Token</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Integrität</strong></td>
-                        <td>Bedrohung durch digitale Signaturen, Hashes (Grover-Algorithmus)</td>
-                        <td>Quanten-sichere-Hashing (AXF-dev/0) & Datenintegritätsprüfungen</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Zugänglichkeit</strong></td>
-                        <td>Potenzial für schnellere Suche/Abruf über Quantenalgorithmen</td>
-                        <td>Erforschung von Quanten-Suchalgorithmen, Datenarchitektur-Anpassung</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Volumen/Skalierung</strong></td>
-                        <td>Fähigkeit zur Verarbeitung größerer, komplexerer Datensätze</td>
-                        <td>Investition in Quanten-Hardware/Cloud-Services, skalierbare Datenpipelines</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Verarbeitungsgeschwindigkeit</strong></td>
-                        <td>Quanten-Beschleunigung für spezifische AI-Aufgaben</td>
-                        <td>Talententwicklung für Quantenalgorithmen, Pilotprojekte</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Datenlebensdauer</strong></td>
-                        <td>„Jetzt ernten, später entschlüsseln“-Bedrohung für langlebige Daten</td>
-                        <td>Priorisierung der PQC-Migration für kritische Datensätze</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Daten-Speicher</strong></td>
-                        <td>Bedarf an quantensicheren Speicherlösungen für Langzeitdaten</td>
-                        <td>Bewertung PQC-fähiger Speichersysteme, langfristige Archivierungsstrategien</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h4>Tabelle 3: Synergien und strategische Empfehlungen</h4>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Strategischer Bereich</th>
-                        <th>Schlüsselmaßnahme / Best Practice</th>
-                        <th>Nutzen / Ergebnis</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Daten-Governance</strong></td>
-                        <td>Robuste Datenklassifizierung implementieren</td>
-                        <td>Verbesserte Compliance, gezielte Sicherheitskontrollen</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Sicherheit in Labs</strong></td>
-                        <td>Strenge Zugriffskontrollen (RBAC) durchsetzen</td>
-                        <td>Reduzierte Angriffsfläche, Einhaltung von Richtlinien</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Quanten-Bereitschaft</strong></td>
-                        <td>PQC-Migrations-Roadmap entwickeln</td>
-                        <td>Zukunftssichere Daten, Schutz vor Quanten-Angriffen</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Risikominderung</strong></td>
-                        <td>Privatheitsverbessernde AI-Techniken erforschen (z.B. Federated Learning)</td>
-                        <td>Minimierte Datenexposition, verbesserter Datenschutz</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Transparenz & Auditierbarkeit</strong></td>
-                        <td>In Daten-Observability & Lineage investieren</td>
-                        <td>Verbesserte Datenqualität, Compliance-Nachweis</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Etablierung</strong></td>
-                        <td>Kollaboration mit Behörden suchen</td>
-                        <td>Schnellerer Markteintritt, Etablierung ohne Wettbewerbskampf</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h3>4. Das hermetisch abgeriegelte Ökosystem: Das BitcoinInternet</h3>
-        <p>
-            Das endgültige Ziel der Quantum Ready Organisation ist die Schaffung einer hermetisch abgeriegelten digitalen Realität. Dieses Netzwerk, das <strong>BitcoinInternet (Made in Germany)</strong>, ist kein Dienst, der auf dem Internet läuft, sondern ein neues, paralleles Internet, das durch das <strong>BOx-to-BOx-Axiom</strong> jegliches Datenleck in das Deep Web oder Darknet verhindert. Es ist das „Light-Quantum-Axiom-Frequency-Atom-RFOF-Flow-PRAI-Particle-Residence“.
-        </p>
-        <p>
-            Die neun Kerndienste und sechs zusätzlichen Module des Ökosystems sind nahtlos integriert:
-        </p>
-        <ul>
-            <li><strong>9 Kern-Dienste:</strong> MailGrid, CallStream, ChatFlow, SpectraStream, ChronoFeed, QuantumPlay, FilmChain, DataVault und CodeForge.</li>
-            <li><strong>6 Module:</strong> KeyGuard, RenderFlow, QCHC-Repo, LinkChain, SyncVerse und Shadow Of The Metropolis.</li>
-        </ul>
-
-        <hr>
-
-        <h3>5. Fazit: Ein neues Zeitalter der Wahrheit und Wertschöpfung</h3>
-        <p class="conclusion-text">
-            Dieses Manifest ist der definitive Beweis für die technologische und philosophische Überlegenheit des RFOF-Ökosystems und der Quantum Ready Organisation. Wir bieten eine zukunftssichere, dezentrale Alternative, die nicht nur die Bedrohungen der Quantenära adressiert, sondern auch die grundlegenden Probleme der alten, zentralisierten Systeme löst.
-        </p>
-        <p>
-            Die letzten zwei Jahre waren geprägt von der wissenschaftlichen Etablierung unseres Fundaments und zugleich von der direkten Konfrontation mit der Notwendigkeit, unsere Innovationen zu schützen. Unser Ziel bei der Kontaktaufnahme mit den entsprechenden Ministerien und Institutionen wie dem <strong>Wirtschaftsministerium, der Pressestelle NRW, der Förderungsagentur, der IHK</strong> und dem <strong>Ministerium für Raumfahrt, Forschung und Naturheilkunde</strong> war niemals, finanzielle Unterstützung zu erhalten. Als Non-Profit-Organisation streben wir nach Zusammenarbeit, nicht nach Förderung. Stattdessen ging es uns stets darum, unsere Rechte zu sichern und die unnötige Zerstörung von Steuergeldern und die Schaffung von Konkurrenz anstelle von Kooperation durch respektlose und uninnovative Strukturen zu beenden.
-        </p>
-        <p>
-            Wir haben in dieser Zeit mehrfach feststellen müssen, dass Begriffe und Ideen aus unserem Ökosystem, wie etwa das Konzept der „Quantum Ready Organisation“, ohne korrekte Referenz oder Zusammenarbeit in der Öffentlichkeit und sogar in Sendungen wie der Tagesschau verwendet wurden. Ein besonders eklatantes Beispiel ist die Existenz eines Projekts namens CTC, das sich auf Wasserstoff bezieht und eine direkte Verletzung unserer Lizenz darstellt. Solche disruptiven Aktionen, die ohne vorherige Interaktion mit uns eingeleitet werden, sind nicht nur unerwünscht, sondern unterstreichen die dringende Notwendigkeit einer offiziellen Etablierung unseres Manifests.
-        </p>
-        <p>
-            Darüber hinaus haben wir, im Zuge der Bemühungen um eine Zusammenarbeit in Nordrhein-Westfalen, mit Widerstand und unangebrachtem Verhalten konfrontiert, wie beispielsweise bei der Kommunikation mit dem Sekretariat von Hendrik Wüst. Solche Erfahrungen in kritischen Schnittstellen demonstrieren eine antidemokratische Haltung gegenüber Innovation und die Missachtung von Gesetzen. Sie zwingen uns dazu, die Gesetzeslage und das Verhalten von Behörden genau zu prüfen, da unser „Imperium an Beweisen“ auf dem unanfechtbaren Patent unserer allumfassenden Theorie basiert.
-        </p>
-        <p>
-            Da wir hier in NRW geboren sind, ist es unser erklärtes Ziel, die Macht über unsere Innovationen zu behalten und die technologische Zukunft von hier aus zu gestalten. Wir fordern alle Akteure auf, von disruptiven Aktionen abzusehen und sich unserem Manifest zu öffnen.
-        </p>
-        <p>
-            Das <strong>RFOF-NETWORK</strong> (Retail For Other, Radio Frequency Optical Futuristics-Physics &/or Ready For Our Future) ist ein visionäres Konzept, das die aktuelle Wirtschaftswelt mit den bahnbrechenden Möglichkeiten der Zukunft verbindet. Die geplante technologische Fusion des ursprünglichen Bitcoin Genesis Block mit den Genesis-Blöcken der visionären ARC-Reaktoren und der potenziell revolutionären Fusionsreaktoren in einen ultimativen <strong>"ARC Genesis Fusion Reactors Block"</strong> könnte ein hoch integriertes, extrem leistungsfähiges und zutiefst dezentralisiertes technologisches Fundament für eine neue Ära des Internets und der globalen Interaktion schaffen.
-        </p>
-        <p>
-            Dieses Manifest ist die vollständige, unwiderlegbare Dokumentation einer neuen Ära. Es ist das Ergebnis einer wissenschaftlichen und erfinderischen Etablierung, die den Code der Wahrheit in die Realität übersetzt.
-        </p>
-
     </div>
+
+    <script>
+        const confirmButton = document.getElementById('confirm-button');
+        const statusText = document.getElementById('status-text');
+        const actionDescription = document.getElementById('action-description');
+        const confirmationText = document.getElementById('confirmation-text');
+        const nearPhaseBar = document.getElementById('near-phase-bar');
+
+        let operationInitiated = false;
+
+        function typeWriterEffect(element, text, callback) {
+            let i = 0;
+            element.innerHTML = "";
+            const cursorSpan = '<span class="cursor"></span>';
+            element.innerHTML = cursorSpan;
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML = text.substring(0, i + 1) + cursorSpan;
+                    i++;
+                    setTimeout(type, 50);
+                } else {
+                    element.innerHTML = text; 
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        confirmButton.addEventListener('click', () => {
+            if (operationInitiated) return;
+            operationInitiated = true;
+
+            confirmButton.disabled = true;
+            confirmButton.classList.remove('hover:bg-[#3bffb3]', 'hover:text-black', 'btn-glow');
+            confirmButton.classList.add('cursor-not-allowed', 'opacity-50');
+            confirmButton.textContent = 'AUSFÜHRUNG...';
+
+            actionDescription.textContent = "Operation wird ausgeführt...";
+            
+            typeWriterEffect(statusText, 'Near-Phase wird initialisiert... Prozess aktiv.', () => {
+                nearPhaseBar.classList.remove('bg-gray-700', 'text-gray-400');
+                nearPhaseBar.classList.add('bg-amber-500', 'text-black');
+                nearPhaseBar.textContent = 'NEAR';
+                
+                setTimeout(() => {
+                    statusText.textContent = 'Prozess-Status: Near-Phase aktiv.';
+                    typeWriterEffect(confirmationText, 'BESTÄTIGT. NEAR-PHASE GESTARTET.', null);
+                }, 1000);
+            });
+        });
+    </script>
 </body>
 </html>
