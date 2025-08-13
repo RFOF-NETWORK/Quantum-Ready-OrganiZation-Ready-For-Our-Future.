@@ -3,8 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quinta Essential & Axiomatisches Manifest</title>
+    <title>RFOF-NETWORK | Status Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #0d1117;
+        }
+        .terminal-glow {
+            text-shadow: 0 0 5px rgba(59, 255, 179, 0.7), 0 0 10px rgba(59, 255, 179, 0.5);
+        }
+        .terminal-glow-amber {
+            text-shadow: 0 0 5px rgba(255, 191, 0, 0.7), 0 0 10px rgba(255, 191, 0, 0.5);
+        }
+        .btn-glow {
+            box-shadow: 0 0 8px rgba(59, 255, 179, 0.6), 0 0 12px rgba(59, 255, 179, 0.4), inset 0 0 8px rgba(59, 255, 179, 0.3);
+        }
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background-color: #3bffb3;
+            animation: blink 1s step-end infinite;
+            margin-left: 4px;
+        }
+        @keyframes blink {
+            from, to { background-color: transparent }
+            50% { background-color: #3bffb3; }
+        }
+        .progress-bar-segment {
+            transition: all 0.5s ease-in-out;
+        }
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Courier+New:wght@400;700&display=swap');
         
         body {
@@ -96,7 +128,125 @@
         }
     </style>
 </head>
-<body>
+<body class="text-[#3bffb3] flex items-center justify-center min-h-screen p-4 bg-[#0d1117]">
+
+    <div class="w-full max-w-4xl bg-black bg-opacity-50 border border-[#3bffb3]/30 rounded-lg p-6 md:p-8 backdrop-blur-sm">
+        
+        <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b border-[#3bffb3]/30">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold terminal-glow">RFOF-NETWORK</h1>
+                <p class="text-sm text-white/70">#BitcoinInternet // InterBOxSpider@Web.NET</p>
+            </div>
+            <div id="system-status" class="text-right mt-4 sm:mt-0">
+                <p class="text-amber-400 terminal-glow-amber">STATUS: <span class="font-bold">NOMINAL</span></p>
+                <p class="text-xs text-white/50">Quantum Ready Project RPFOF</p>
+            </div>
+        </header>
+
+        <main>
+            <div id="intro-section" class="mb-8">
+                <h2 class="text-xl font-bold text-white mb-2">Operation Status Interface</h2>
+                <p class="text-white/80 leading-relaxed">
+                    Dieses Interface stellt den aktuellen Status der Operationen innerhalb des Ziel-Repositorys dar. Es visualisiert den Fortschritt der definierten Prozessphasen und erfordert eine explizite Bestätigung, um mit dem nächsten Schritt fortzufahren. Alle Systeme sind online und warten auf Ihre Eingabe.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-gray-900/50 border border-gray-700/50 rounded-md p-4">
+                    <h3 class="font-bold text-white mb-3">SYSTEM PROTOKOLL</h3>
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <p class="text-gray-400">» ZIEL-REPOSITORY:</p>
+                            <p class="font-bold text-lg ml-4">PZQQET-Axiomatikx</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">» AKTUELLE AKTION:</p>
+                            <p class="text-white/90 ml-4">Erstellung der 5. Datei // Sektion: GeneFusioNear-Mechanismen</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900/50 border border-gray-700/50 rounded-md p-4">
+                    <h3 class="font-bold text-white mb-3">PROZESS-STATUS</h3>
+                    <div class="w-full bg-gray-800 rounded-full h-8 flex overflow-hidden border border-gray-600 my-3">
+                        <div id="fusion-phase-bar" class="progress-bar-segment w-1/2 bg-[#3bffb3] flex items-center justify-center text-black font-bold text-sm">
+                            FUSION
+                        </div>
+                        <div id="near-phase-bar" class="progress-bar-segment w-1/2 bg-gray-700 flex items-center justify-center text-gray-400 font-bold text-sm">
+                            NEAR
+                        </div>
+                    </div>
+                    <p id="status-text" class="text-center text-white/80">
+                        <span class="font-bold text-[#3bffb3]">Fusions-Phase</span> abgeschlossen. Warte auf Bestätigung für <span class="font-bold text-amber-400">Near-Phase</span>.
+                    </p>
+                </div>
+
+            </div>
+
+            <div id="action-section" class="mt-8 pt-6 border-t border-[#3bffb3]/30 text-center">
+                <h3 class="text-lg font-bold text-white mb-2">NÄCHSTER SCHRITT</h3>
+                <p id="action-description" class="text-amber-400 mb-4">Erforderliche Eingabe: Bestätigung zur Fortsetzung der Operation.</p>
+                <button id="confirm-button" class="w-full sm:w-auto bg-transparent border-2 border-[#3bffb3] text-[#3bffb3] font-bold py-3 px-8 rounded-md hover:bg-[#3bffb3] hover:text-black transition-all duration-300 btn-glow focus:outline-none focus:ring-2 focus:ring-[#3bffb3] focus:ring-offset-2 focus:ring-offset-black">
+                    INITIIERE NEAR-PHASE
+                </button>
+                <p id="confirmation-text" class="mt-4 h-6"></p>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        const confirmButton = document.getElementById('confirm-button');
+        const statusText = document.getElementById('status-text');
+        const actionDescription = document.getElementById('action-description');
+        const confirmationText = document.getElementById('confirmation-text');
+        const nearPhaseBar = document.getElementById('near-phase-bar');
+
+        let operationInitiated = false;
+
+        function typeWriterEffect(element, text, callback) {
+            let i = 0;
+            element.innerHTML = "";
+            const cursorSpan = '<span class="cursor"></span>';
+            element.innerHTML = cursorSpan;
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML = text.substring(0, i + 1) + cursorSpan;
+                    i++;
+                    setTimeout(type, 50);
+                } else {
+                    element.innerHTML = text; 
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        confirmButton.addEventListener('click', () => {
+            if (operationInitiated) return;
+            operationInitiated = true;
+
+            confirmButton.disabled = true;
+            confirmButton.classList.remove('hover:bg-[#3bffb3]', 'hover:text-black', 'btn-glow');
+            confirmButton.classList.add('cursor-not-allowed', 'opacity-50');
+            confirmButton.textContent = 'AUSFÜHRUNG...';
+
+            actionDescription.textContent = "Operation wird ausgeführt...";
+            
+            typeWriterEffect(statusText, 'Near-Phase wird initialisiert... Prozess aktiv.', () => {
+                nearPhaseBar.classList.remove('bg-gray-700', 'text-gray-400');
+                nearPhaseBar.classList.add('bg-amber-500', 'text-black');
+                nearPhaseBar.textContent = 'NEAR';
+                
+                setTimeout(() => {
+                    statusText.textContent = 'Prozess-Status: Near-Phase aktiv.';
+                    typeWriterEffect(confirmationText, 'BESTÄTIGT. NEAR-PHASE GESTARTET.', null);
+                }, 1000);
+            });
+        });
+    </script>
     <div class="content">
         <h1>Quinta Essential & Axiomatisches Manifest der digitalen und gesellschaftlichen Neugründung</h1>
 
